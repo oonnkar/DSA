@@ -1,0 +1,26 @@
+# Ignore everything by default
+*
+
+# Allow directories so we can unignore source files inside them
+!*/
+
+# Allow C++ source files and the gitignore itself
+!*.cpp
+!.gitignore
+!README.md
+
+# Ignore compiled binaries and build artifacts
+*.exe
+*.out
+*.obj
+*.o
+*.gch
+*.dSYM
+*.dSYM/
+
+# Ignore common build directories
+build/
+bin/
+release/
+debug/
+.vscode/
