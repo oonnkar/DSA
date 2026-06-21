@@ -1,0 +1,23 @@
+PHYSICAL DATA STRUCTURES vs LOGICAL DATA STRUCTURES
+
+PHYSICAL DATA STRUCTURES:
+- These are the actual ways data is arranged and stored in computer memory
+- They define how data is physically organized in RAM or storage
+- Examples:
+  * Array: Contiguous memory blocks, fixed size, direct indexing
+  * Linked List: Non-contiguous memory, nodes connected via pointers, dynamic size
+
+LOGICAL DATA STRUCTURES:
+- They define the logical relationships and operations on data
+- Examples:
+  * Stack: LIFO (Last In First Out) - can be implemented using array or linked list
+  * Queue: FIFO (First In First Out) - can be implemented using array or linked list
+  * Tree: Hierarchical structure - can be implemented using array or linked list
+  * Graph: Nodes with edges - can be implemented using various methods
+  * Hash Table: Key-value pairs - can use arrays with collision resolution
+
+KEY DIFFERENCE:
+- Physical structures focus on "HOW" data is stored in memory
+- Logical structures focus on "WHAT" operations we can perform on data
+- One logical structure can be implemented using multiple physical structures
+- Choice of physical structure affects performance (time/space complexity)

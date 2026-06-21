@@ -8,6 +8,7 @@
 !*.cpp
 !.gitignore
 !README.md
+!*.txt
 
 # Ignore compiled binaries and build artifacts
 *.exe

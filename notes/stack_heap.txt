@@ -1,0 +1,19 @@
+Stack vs Heap Memory Allocation
+
+When we run a program, a segment of main memory is allocated to our program. 
+This memory is divided into three sections:
+1. Code Section
+2. Stack
+3. Heap
+
+STACK:
+- Called STATIC MEMORY ALLOCATION
+- Memory allocation is decided at compile time
+- Size is fixed and known before execution
+- Faster access, automatically freed when variable goes out of scope
+
+HEAP:
+- Called DYNAMIC MEMORY ALLOCATION
+- Memory is allocated at runtime
+- Size can grow/shrink during program execution
+- Slower access, manual management needed (or garbage collection)
