@@ -6,7 +6,7 @@ using namespace std;
 // structure array contains pointer to array. it's size and length(how many valid elements are present int array)
 struct Array
 {
-    int *A;
+    int A[10];
     int size;
     int length;
 };
@@ -63,41 +63,34 @@ int del_at_index(struct Array *arr, int index)
     }
     return 0;
 }
+// Linear Search:
+// Best case (successful search): Element is found at index 0.
+// Number of comparisons = 1.
+//
+// Worst case (successful search): Element is found at the last index (n - 1).
+// Number of comparisons = n.
+//
+// Worst case (unsuccessful search): Element is not present in the array.
+// Number of comparisons = n.
+//
+// Time Complexity:
+// Best Case: O(1)
+// Worst Case: O(n)
+int linear_search(struct Array arr, int key)
+{
+    for (int i = 0; i < arr.length; i++)
+    {
+        if (key == arr.A[i])
+            return i;
+    }
+    return 0;
+}
 //
 int main()
 {
-    // user input size of array
-    int size = 0, length = 0;
-    cout << "enter size of array: ";
-    cin >> size;
-    cout << endl;
-    cout << "enter length of array: ";
-    cin >> length;
-    cout << endl;
-    // vairable of
-    struct Array arr;
-    // create array of mentioned size and assign first element's address to A
-    arr.A = new int[size];
-    arr.size = size;
-    arr.length = length;
-    // assgin values to elements inside array
-    cout << "Enter elements inside array" << endl;
-    for (int i = 0; i < length; i++)
-    {
-        cout << "enter " << i << "th element: ";
-        cin >> arr.A[i];
-    }
-    // display all elements inside array
-    display(arr);
-    // append elements in array
-    append(&arr, 4);
-    // display elements of array
-    display(arr);
-    // insert at specific index in array
-    insert(&arr, 0, 2);
-    display(arr);
-    // delete at index in array
-    del_at_index(&arr, 2);
-    display(arr);
+    struct Array arr = {{1, 2, 3, 4, 5}, 10, 5};
+
+    cout << "Searching for element 4 using linear search and element i found at index ";
+    cout << linear_search(arr, 4);
     return 0;
 }
