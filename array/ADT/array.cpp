@@ -85,12 +85,89 @@ int linear_search(struct Array arr, int key)
     }
     return 0;
 }
+// Binary Search
+// Note:
+// - The array must be sorted in ascending order.
 //
+// Best Case:
+// - The key is found at the middle element.
+// - Comparisons = 1.
+// - Time Complexity = O(1).
+//
+// Worst Case:
+// - The key is found after repeatedly dividing the search space,
+//   or the key is not present.
+// - Maximum comparisons ≈ log2(n) + 1.
+// - Time Complexity = O(log n).
+//
+// Space Complexity:
+// - Iterative Binary Search: O(1)
+// - Recursive Binary Search: O(log n) due to the recursion stack.
+int iter_binary_search(struct Array arr, int key)
+{
+    int l = 0, h = arr.length, mid = 0;
+    while (l <= h)
+    {
+        mid = (l + h) / 2;
+        if (arr.A[mid] == key)
+        {
+            return mid;
+        }
+        else if (key < arr.A[mid])
+        {
+            h = mid - 1;
+        }
+        else
+        {
+            l = mid + 1;
+        }
+    }
+    return -1;
+}
+// Recursive Binary Search
+// The array must be sorted in ascending order.
+//
+// Best Case:
+// - The key is found at the middle element.
+// - Comparisons = 1.
+// - Time Complexity = O(1).
+//
+// Worst Case:
+// - The key is found after repeatedly dividing the search space,
+//   or the key is not present in the array.
+// - Maximum comparisons = log2(n) + 1.
+// - Time Complexity = O(log n).
+//
+// Space Complexity:
+// - O(log n) due to recursive function calls (call stack).
+
+int rec_binary_search_helper(struct Array arr, int key, int l, int h)
+{
+    if (l <= h)
+    {
+        int mid = (l + h) / 2;
+
+        if (arr.A[mid] == key)
+            return mid;
+        else if (key < arr.A[mid])
+            return rec_binary_search_helper(arr, key, l, mid - 1);
+        else
+            return rec_binary_search_helper(arr, key, mid + 1, h);
+    }
+
+    // Key not found
+    return -1;
+}
+// Wrapper function to start the recursive binary search
+int rec_binary_search(struct Array arr, int key)
+{
+    return rec_binary_search_helper(arr, key, 0, arr.length - 1);
+}
 int main()
 {
     struct Array arr = {{1, 2, 3, 4, 5}, 10, 5};
 
-    cout << "Searching for element 4 using linear search and element i found at index ";
-    cout << linear_search(arr, 4);
+    cout << "Searching for element 4 using binary search and element found at index ";
+    cout << rec_binary_search(arr, 4) << endl;
     return 0;
 }
