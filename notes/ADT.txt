@@ -1,0 +1,16 @@
+Datatype
+A datatype is a combination of:
+Representation of data (how the data is stored), and
+Operations on the data (what actions can be performed on it).
+For example, the int datatype stores integer values and supports operations such as addition, subtraction, multiplication, and division.
+
+Abstraction
+Abstraction is the process of hiding the internal implementation details and showing only the essential features to the user. This allows users to use an object or function without knowing how it works internally.
+
+Abstract Data Type (ADT)
+An Abstract Data Type (ADT) is a user-defined datatype that specifies:
+What data is stored, and
+What operations can be performed on that data,
+while hiding the implementation details.
+
+In object-oriented programming (OOP), classes are commonly used to implement Abstract Data Types. A class defines the data members and the operations (methods), allowing users to work with the object without knowing its internal implementation.
