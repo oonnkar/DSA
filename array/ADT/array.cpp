@@ -247,16 +247,38 @@ void swap(int *a, int *b)
 // reverse array using two pointer
 void reverse_array_using_two_pointer(struct Array *arr)
 {
-    for (int i = 0, j = arr->length -1; i < j; i++, j--)
+    for (int i = 0, j = arr->length - 1; i < j; i++, j--)
     {
         swap(&arr->A[i], &arr->A[j]);
     }
 }
-// 
+// check array is sorted or not
+int isSorted(struct Array arr)
+{
+    for (int i = 0; i < arr.length - 1; i++)
+
+    {
+        if (arr.A[i] > arr.A[i + 1])
+            return 0;
+    }
+    return 1;
+}
+// add number into sorted position in sorted array
+void addNumberToSorted(struct Array *arr, int x)
+{
+    int i = arr->length -1;
+    while (i >= 0 && arr->A[i] > x)
+    {
+        arr->A[i + 1] = arr->A[i];
+        i--;
+    }
+    arr->A[i+1] = x; 
+}
+//
 int main()
 {
-    struct Array arr = {{1, -2, 13, 4, 5}, 10, 5};
-    reverse_array_using_two_pointer(&arr);
+    struct Array arr = {{1, 2, 3, 4, 5}, 10, 5};
+    addNumberToSorted(&arr, 0);
     display(arr);
     return 0;
 }
