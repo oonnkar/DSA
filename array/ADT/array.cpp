@@ -191,7 +191,7 @@ int sum_of_all_elements(struct Array arr)
         total += arr.A[i];
     }
     return total;
-} 
+}
 // average of all elements in array
 float average(struct Array arr)
 {
@@ -219,24 +219,44 @@ int min(struct Array arr)
     }
     return min;
 }
+/* Reverse Array
+two methods of reverse array
+1.using auxaliry array
+2.using two pointer
+*/
+void reverse_array_using_auxaliry_array(struct Array *arr)
+{
+    int *p;
+    p = new int[arr->length];
+
+    for (int i = 0, j = arr->length - 1; j >= 0; i++, j--)
+    {
+        p[i] = arr->A[j];
+    }
+    for (int i = 0; i < arr->length; i++)
+    {
+        arr->A[i] = p[i];
+    }
+}
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+// reverse array using two pointer
+void reverse_array_using_two_pointer(struct Array *arr)
+{
+    for (int i = 0, j = arr->length -1; i < j; i++, j--)
+    {
+        swap(&arr->A[i], &arr->A[j]);
+    }
+}
 // 
 int main()
 {
     struct Array arr = {{1, -2, 13, 4, 5}, 10, 5};
-
-    cout << "Searching for element 4 using binary search and element found at index ";
-    cout << rec_binary_search(arr, 4) << endl;
-
-    cout << "Element at index 2: " << get(arr, 2) << endl;
-
-    set(&arr, 2, 10);
-    cout << "After set, element at index 2: " << get(arr, 2) << endl;
-
-    cout << "Sum of all elements: " << sum_of_all_elements(arr) << endl;
-    cout << "Maximum element: " << max(arr) << endl;
-    cout << "Minimum element: " << min(arr) << endl;
-    cout << "Average of elements: " << average(arr) << endl;
+    reverse_array_using_two_pointer(&arr);
     display(arr);
-
     return 0;
 }
