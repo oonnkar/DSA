@@ -266,19 +266,44 @@ int isSorted(struct Array arr)
 // add number into sorted position in sorted array
 void addNumberToSorted(struct Array *arr, int x)
 {
-    int i = arr->length -1;
+    int i = arr->length - 1;
     while (i >= 0 && arr->A[i] > x)
     {
         arr->A[i + 1] = arr->A[i];
         i--;
     }
-    arr->A[i+1] = x; 
+    arr->A[i + 1] = x;
+}
+// merge is process of combining two sorted lists into single sorted lists
+struct Array *merge(struct Array arr1, struct Array arr2)
+{
+    struct Array *arr3 = new struct Array;
+    arr3->size = 10;
+    int i, j, k;
+    i = j = k = 0;
+    while (i < arr1.length && j < arr2.length)
+    {
+        if (arr1.A[i] < arr2.A[j])
+            arr3->A[k++] = arr1.A[i++];
+        else
+            arr3->A[k++] = arr2.A[j++];
+    }
+    for (; i < arr1.length; i++)
+    {
+        arr3->A[k++] = arr1.A[i];
+    }
+    for (; j < arr2.length; j++)
+    {
+        arr3->A[k++] = arr2.A[j];
+    }
+    arr3->length = arr1.length + arr2.length;
+    return arr3;
 }
 //
 int main()
 {
-    struct Array arr = {{1, 2, 3, 4, 5}, 10, 5};
-    addNumberToSorted(&arr, 0);
-    display(arr);
+    struct Array arr1 = {{1, 3, 5, 7, 10}, 10, 5};
+    struct Array arr2 = {{2, 4, 6, 8, 12}, 10, 5};
+    struct Array *arr3  = merge(arr1, arr2);
     return 0;
 }
