@@ -163,11 +163,80 @@ int rec_binary_search(struct Array arr, int key)
 {
     return rec_binary_search_helper(arr, key, 0, arr.length - 1);
 }
+// get element at a particular index
+// Returns the value at index if valid; otherwise returns 0.
+int get(struct Array arr, int index)
+{
+    if (index >= 0 && index < arr.length)
+    {
+        return arr.A[index];
+    }
+    return 0;
+}
+// set element at a particular index
+// Updates the value at index when the index is valid.
+void set(struct Array *arr, int index, int x)
+{
+    if (index >= 0 && index < arr->length)
+    {
+        arr->A[index] = x;
+    }
+}
+// sum of all elements in array
+int sum_of_all_elements(struct Array arr)
+{
+    int total = 0;
+    for (int i = 0; i < arr.length; i++)
+    {
+        total += arr.A[i];
+    }
+    return total;
+} 
+// average of all elements in array
+float average(struct Array arr)
+{
+    return (float)sum_of_all_elements(arr) / arr.length;
+}
+// search for maximum element in array
+int max(struct Array arr)
+{
+    int max = arr.A[0];
+    for (int i = 1; i < arr.length; i++)
+    {
+        if (arr.A[i] > max)
+            max = arr.A[i];
+    }
+    return max;
+}
+// minimum element in aarray
+int min(struct Array arr)
+{
+    int min = arr.A[0];
+    for (int i = 1; i < arr.length; i++)
+    {
+        if (arr.A[i] < min)
+            min = arr.A[i];
+    }
+    return min;
+}
+// 
 int main()
 {
-    struct Array arr = {{1, 2, 3, 4, 5}, 10, 5};
+    struct Array arr = {{1, -2, 13, 4, 5}, 10, 5};
 
     cout << "Searching for element 4 using binary search and element found at index ";
     cout << rec_binary_search(arr, 4) << endl;
+
+    cout << "Element at index 2: " << get(arr, 2) << endl;
+
+    set(&arr, 2, 10);
+    cout << "After set, element at index 2: " << get(arr, 2) << endl;
+
+    cout << "Sum of all elements: " << sum_of_all_elements(arr) << endl;
+    cout << "Maximum element: " << max(arr) << endl;
+    cout << "Minimum element: " << min(arr) << endl;
+    cout << "Average of elements: " << average(arr) << endl;
+    display(arr);
+
     return 0;
 }
