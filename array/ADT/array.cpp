@@ -6,20 +6,31 @@ using namespace std;
 // structure array contains pointer to array. it's size and length(how many valid elements are present int array)
 struct Array
 {
-    int A[10];
+    int *A;
     int size;
     int length;
 };
+// create structure array in heap
+struct Array *create_array(int *arr, int size)
+{
+    struct Array *array = new struct Array;
+    array->A = new int[size * 2];
+    array->length = size;
+    array->size = size * 2;
+    for (int i = 0; i < size; i++)
+    {
+        array->A[i] = arr[i];
+    }
+    return array;
+}
 // diplay elements inside array
 void display(struct Array arr)
 {
-    cout << "Displaying elements of list" << endl;
     for (int i = 0; i < arr.length; i++)
     {
 
         cout << arr.A[i] << " ";
     }
-    cout << endl;
 }
 // append element in array
 void append(struct Array *arr, int x)
@@ -302,8 +313,55 @@ struct Array *merge(struct Array arr1, struct Array arr2)
 //
 int main()
 {
-    struct Array arr1 = {{1, 3, 5, 7, 10}, 10, 5};
-    struct Array arr2 = {{2, 4, 6, 8, 12}, 10, 5};
-    struct Array *arr3  = merge(arr1, arr2);
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = 5;
+    struct Array *arr2 = create_array(arr, size);
+    int ch = 0;
+    do
+    {
+
+        int index, x;
+        cout << "1. Display Array" << endl;
+        cout << "2. Insert Element in array" << endl;
+        cout << "3. Delete Element in array" << endl;
+        cout << "4. Find minimum element in array" << endl;
+        cout << "5. Find maximum element in array" << endl;
+        cout << "6. Searching element in array" << endl;
+
+        cout << "Enter our choice: ";
+        cin >> ch;
+
+        switch (ch)
+        {
+        case 1:
+            cout << "Displaying elements of list: ";
+            display(*arr2);
+            cout << endl; 
+            break;
+        case 2:
+
+            cout << "Insert Index and element: ";
+            cin >> index >> x;
+            insert(arr2, index, x);
+            break;
+        case 3:
+            cout << "Deletion Index: " ;
+            cin >> index;
+            del_at_index(arr2, index);
+            break;
+        case 4:
+            cout << "Minimum element in array is "<< min(*arr2)<< endl;
+            break;
+        case 5:
+            cout <<"Maximum element in array is " <<  max(*arr2) << endl;
+            break;
+        case 6:
+            cout << "Enter element which you want to search in array" << endl;
+            cin >> x;
+            cout << "Element found at index" << linear_search(*arr2, 2) << endl;
+            break;
+        }
+    } while (ch < 7);
+
     return 0;
 }
