@@ -1,0 +1,8 @@
+A computer understands only binary (0s and 1s) because its electronic circuits have two states: ON (1) and OFF (0). Although computers process billions of operations per second, they cannot directly understand letters, words, paragraphs, or symbols. Humans communicate using characters like A, B, C, a, b, c, 1, 2, 3, @, #, ₹, 😀, etc. To allow computers to store and process these characters, each one is assigned a unique numeric code using a character encoding system such as ASCII or Unicode.
+For example:
+A → 65 (ASCII)
+a → 97 (ASCII)
+0 → 48 (ASCII)
+₹ → U+20B9 (Unicode)
+😀 → U+1F600 (Unicode)
+The computer stores these numeric codes as binary in memory. When the CPU reads the data, it processes the binary values. When the data is displayed on the screen, the operating system and fonts convert those codes back into the characters that humans can read.
