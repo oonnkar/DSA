@@ -10,18 +10,14 @@ using namespace std;
  * character arrays do not require a null terminator.
  *
  * The Null Terminator (\0):
- * Without the null terminator, functions like printf() or strlen()
- * wouldn't know where the string ends, causing them to read into random
- * memory until they crash or find a random zero.
+ * Without the null terminator, functions like printf() or strlen() wouldn't know where the string ends, causing them to read into random memory until they crash or find a random zero.
  *
  * Visualizing the Difference in Memory:
  * - Array of Chars (Not a string): ['H', 'e', 'l', 'l', 'o']      (Size: 5 bytes)
  * - C-Style String:                ['H', 'e', 'l', 'l', 'o', '\0'] (Size: 6 bytes)
  *
  * A Note on Modern Languages:
- * While C-style strings rely on '\0', modern languages (Python, Java, JS)
- * manage strings by storing the explicit length of the string in memory
- * next to the characters, making length checks much faster.
+ * While C-style strings rely on '\0', modern languages (Python, Java, JS) manage strings by storing the explicit length of the string in memory next to the characters, making length checks much faster.
  */
 // display string
 void display(char *str)
