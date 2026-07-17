@@ -140,7 +140,33 @@ int recSum(Node *head)
 {
     return recSumHelper(head);
 }
+// Find maximum element in list
+int findMax(Node *head)
+{
+    int max = INT32_MIN;
+    Node *p = head;
+    while (p)
+    {
+        if (p->data > max)
+            max = p->data;
+        p = p->next;
+    }
+    return max;
+}
+// Find maximum element recursively
+int recFindMax(Node *p)
+{
+    if (p == nullptr)
+        return INT32_MIN;
+    else
+    {
 
+        int x = recFindMax(p->next);
+        if (p->data > x)
+            return p->data;
+        else return x;
+    }
+}
 int main()
 {
     // Array used to create the linked list
@@ -165,5 +191,10 @@ int main()
     // Print the sum of all node values using both methods
     cout << "Sum of all elements in nodes " << sum(head) << " And sum of all elements in nodes " << recSum(head) << endl;
 
+    // Display maximum element in linkedlist
+    cout << "Maximum element in linkedlist is " << findMax(head) << endl;
+
+    // Display maximum element in list
+    cout << "Recursion: Maximum element in linkedlist is " << recFindMax(head) << endl;
     return 0;
 }
