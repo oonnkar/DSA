@@ -11,32 +11,37 @@ struct Node
 // Creates a linked list from an array and returns the head pointer
 Node *createLinkedList(int *array, int size)
 {
-    // Create the first node (head)
-    Node *head = new Node;
-    head->data = array[0];
-    head->next = nullptr;
-
-    // current is used to create new nodes
-    // tail always points to the last node in the list
-    Node *current = nullptr;
-    Node *tail = head;
-
-    // Create the remaining nodes and attach them at the end
-    for (int index = 1; index < size; index++)
+    if (size > 0)
     {
-        current = new Node;
-        current->data = array[index];
-        current->next = nullptr;
 
-        // Link the new node to the list
-        tail->next = current;
+        // Create the first node (head)
+        Node *head = new Node;
+        head->data = array[0];
+        head->next = nullptr;
 
-        // Move tail to the newly created node
-        tail = current;
+        // current is used to create new nodes
+        // tail always points to the last node in the list
+        Node *current = nullptr;
+        Node *tail = head;
+
+        // Create the remaining nodes and attach them at the end
+        for (int index = 1; index < size; index++)
+        {
+            current = new Node;
+            current->data = array[index];
+            current->next = nullptr;
+
+            // Link the new node to the list
+            tail->next = current;
+
+            // Move tail to the newly created node
+            tail = current;
+        }
+
+        // Return the head of the linked list
+        return head;
     }
-
-    // Return the head of the linked list
-    return head;
+    return nullptr;
 }
 
 // Displays all nodes of the linked list using iteration
@@ -221,11 +226,65 @@ Node *linearSearchMoveToFront(Node *p, int key)
     }
     return nullptr;
 }
+// Insert element at given position in linkedlist
+void insert(Node *p, int pos, int key)
+{
+    if (p)
+    {
+
+        Node *head = p;
+        int validPosition = countNodes(p);
+        if (pos >= 0 && pos <= validPosition)
+        {
+            if (pos == 0)
+            {
+                Node *temp = new Node;
+                temp->data = key;
+                temp->next = head;
+                head = temp;
+            }
+            else
+            {
+                for (int i = 1; i < pos; i++)
+                {
+                    p = p->next;
+                }
+                Node *temp = new Node;
+                temp->data = key;
+                temp->next = p->next;
+                p->next = temp;
+            }
+        }
+    }
+}
+// Insert in sorted linkedlist
+Node *insertSortedLinkedList(Node *p, int data)
+{
+    Node *head = p, *q = nullptr;
+    Node *temp = new Node;
+    temp->data = data;
+    while (p && p->data < data)
+    {
+        q = p;
+        p = p->next;
+    }
+    if (p == head)
+    {
+        temp->next = head;
+        head = temp;
+    }
+    else
+    {
+        temp->next = q->next;
+        q->next = temp;
+    }
+    return head;
+}
 int main()
 {
     // Array used to create the linked list
-    int numbers[] = {1, 2, 3, 4, 5};
-    int arraySize = 5;
+    int numbers[] = {1, 2, 4, 5};
+    int arraySize = 4;
 
     // Create the linked list from the array
     Node *head = createLinkedList(numbers, arraySize);
@@ -261,5 +320,11 @@ int main()
     // Linear search using move to front method
     head = linearSearchMoveToFront(head, 3);
     display(head);
+
+    // Insert in Sorted LinkedList
+    insertSortedLinkedList(head, 3);
+    insertSortedLinkedList(head, 6);
+    display(head);
+
     return 0;
 }
