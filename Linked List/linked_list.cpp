@@ -236,7 +236,7 @@ int main()
     // Display heading for recursive traversal
     cout << "Recursive display" << endl;
 
-    // Display the linked list using recursion
+    // Display the linked list using recurLsion
     recursiveDisplay(head);
 
     // Print the node count using both iterative and recursive methods
