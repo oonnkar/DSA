@@ -153,6 +153,7 @@ int findMax(Node *head)
     }
     return max;
 }
+
 // Find maximum element recursively
 int recFindMax(Node *p)
 {
@@ -164,8 +165,61 @@ int recFindMax(Node *p)
         int x = recFindMax(p->next);
         if (p->data > x)
             return p->data;
-        else return x;
+        else
+            return x;
     }
+}
+
+// Linear Search
+Node *linearSearch(Node *p, int key)
+{
+    while (p)
+    {
+
+        if (p->data == key)
+            return p;
+        p = p->next;
+    }
+    return nullptr;
+}
+
+// Linear Search using recursion
+Node *recLinearSearch(Node *p, int key)
+{
+    // if(node is present) check node's data is equal to key if it is equal return address of node. if not check next node and if(node's not present means we have checked all node's we doesn't found match) return nullptr
+    if (p)
+    {
+        if (p->data == key)
+            return p;
+        else
+            return recLinearSearch(p->next, key);
+    }
+    return nullptr;
+}
+
+// Linear Search impoved using move to front method
+Node *linearSearchMoveToFront(Node *p, int key)
+{
+    Node *head = p;
+    Node *q = nullptr;
+    while (p)
+    {
+        if (p->data == key)
+        {
+
+            if (p != head)
+            {
+                q->next = p->next;
+                p->next = head;
+                head = p;
+            }
+            return head;
+        }
+
+        q = p;
+        p = p->next;
+    }
+    return nullptr;
 }
 int main()
 {
@@ -196,5 +250,16 @@ int main()
 
     // Display maximum element in list
     cout << "Recursion: Maximum element in linkedlist is " << recFindMax(head) << endl;
+
+    // Find Element in list
+    Node *temp = recLinearSearch(head, 3);
+    if (temp != nullptr)
+        cout << "Element found: " << temp->data << endl;
+    else
+        cout << "Element not found" << endl;
+
+    // Linear search using move to front method
+    head = linearSearchMoveToFront(head, 3);
+    display(head);
     return 0;
 }
