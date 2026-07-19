@@ -280,51 +280,55 @@ Node *insertSortedLinkedList(Node *p, int data)
     }
     return head;
 }
+// Delete node from linkedlist using index
+// index starts from 1 onwards
+Node *deleteNode(Node *p, int index)
+{
+    Node *head = p;
+    int noOfNodes = countNodes(p);
+    if (index > 0 && index <= noOfNodes)
+    {
+        if (index == 1)
+        {
+            head = p->next;
+            delete p;
+        }
+        else
+        {
+            Node *q = nullptr;
+            for (int i = 1; i < index; i++)
+            {
+                q = p;
+                p = p->next;
+            }
+            q->next = p->next;
+            delete p;
+        }
+    }
+    return head;
+}
+// Check LinkedList is sorted
+bool isSorted(Node *p)
+{
+    int x = p->data;
+    p = p->next;
+    while (p)
+    {
+        if (p->data < x)
+            return false;
+        x = p->data;
+        p = p->next;
+    }
+    return true;
+}
 int main()
 {
     // Array used to create the linked list
-    int numbers[] = {1, 2, 4, 5};
-    int arraySize = 4;
+    int numbers[] = {1, 2, 1, 4, 5};
+    int arraySize = 5;
 
     // Create the linked list from the array
     Node *head = createLinkedList(numbers, arraySize);
-
-    // Display the linked list using iteration
-    display(head);
-
-    // Display heading for recursive traversal
-    cout << "Recursive display" << endl;
-
-    // Display the linked list using recurLsion
-    recursiveDisplay(head);
-
-    // Print the node count using both iterative and recursive methods
-    cout << "Count Nodes : " << countNodes(head) << " And count Nodes recursively " << recCountNodes(head) << endl;
-
-    // Print the sum of all node values using both methods
-    cout << "Sum of all elements in nodes " << sum(head) << " And sum of all elements in nodes " << recSum(head) << endl;
-
-    // Display maximum element in linkedlist
-    cout << "Maximum element in linkedlist is " << findMax(head) << endl;
-
-    // Display maximum element in list
-    cout << "Recursion: Maximum element in linkedlist is " << recFindMax(head) << endl;
-
-    // Find Element in list
-    Node *temp = recLinearSearch(head, 3);
-    if (temp != nullptr)
-        cout << "Element found: " << temp->data << endl;
-    else
-        cout << "Element not found" << endl;
-
-    // Linear search using move to front method
-    head = linearSearchMoveToFront(head, 3);
-    display(head);
-
-    // Insert in Sorted LinkedList
-    insertSortedLinkedList(head, 3);
-    insertSortedLinkedList(head, 6);
-    display(head);
-
+    cout << isSorted(head);
     return 0;
 }
