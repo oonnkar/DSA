@@ -321,14 +321,44 @@ bool isSorted(Node *p)
     }
     return true;
 }
+// Remove duplicates in sorted linked list
+Node *removeDuplicates(Node *p)
+{
+    Node *head = p;
+    Node *q = p;
+    if (p->next)
+    {
+
+        p = p->next;
+    }
+    while (p)
+    {
+        if (p->data)
+        {
+            if (p->data == q->data)
+            {
+                q->next = p->next;
+                delete p;
+                p = q->next;
+            }
+            else
+            {
+                q = p;
+                p = p->next;
+            }
+        }
+    }
+    return head;
+}
 int main()
 {
     // Array used to create the linked list
-    int numbers[] = {1, 2, 1, 4, 5};
-    int arraySize = 5;
+    int numbers[] = {1, 2, 2, 2, 4, 5};
+    int arraySize = 6;
 
     // Create the linked list from the array
     Node *head = createLinkedList(numbers, arraySize);
-    cout << isSorted(head);
+    Node *first = removeDuplicates(head);
+    display(first);
     return 0;
 }
