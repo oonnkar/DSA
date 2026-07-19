@@ -350,6 +350,59 @@ Node *removeDuplicates(Node *p)
     }
     return head;
 }
+// Reverse linkedlist using auxaliry array
+Node *reverseLinkedListUsingArray(Node *p)
+{
+    Node *head = p;
+
+    int noOfNodes = countNodes(p);
+    int *arr = new int[noOfNodes];
+
+    int i = 0;
+    while (p)
+    {
+        arr[i] = p->data;
+        p = p->next;
+        i++;
+    }
+    i--;
+    p = head;
+    while (p)
+    {
+        p->data = arr[i];
+        i--;
+        p = p->next;
+    }
+    return head;
+}
+// Reverse LinkedList using sliding pointers
+Node *reverseLinkedList(Node *p)
+{
+    Node *r = nullptr, *q = nullptr;
+    while (p)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    return q;
+}
+// Reverse linkedlist using recursion with help of two pointers
+Node *recReverseLinkedList(Node *q, Node *p)
+{
+    static Node *head =  nullptr;
+    if (p)
+    {
+        recReverseLinkedList(p, p->next);
+        p->next = q;
+    }
+    else
+    {
+        head = q;
+    }
+    return head;
+}
 int main()
 {
     // Array used to create the linked list
@@ -358,7 +411,7 @@ int main()
 
     // Create the linked list from the array
     Node *head = createLinkedList(numbers, arraySize);
-    Node *first = removeDuplicates(head);
+    Node *first = recReverseLinkedList(nullptr, head);
     display(first);
     return 0;
 }
