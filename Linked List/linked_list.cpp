@@ -391,7 +391,7 @@ Node *reverseLinkedList(Node *p)
 // Reverse linkedlist using recursion with help of two pointers
 Node *recReverseLinkedList(Node *q, Node *p)
 {
-    static Node *head =  nullptr;
+    static Node *head = nullptr;
     if (p)
     {
         recReverseLinkedList(p, p->next);
@@ -403,15 +403,60 @@ Node *recReverseLinkedList(Node *q, Node *p)
     }
     return head;
 }
+// merge linkedlist
+Node *mergeLinkedList(Node *first, Node *second)
+{
+    Node *third = nullptr, *last = nullptr;
+    if (first->data < second->data)
+    {
+        third = last = first;
+        first = first->next;
+        last->next = nullptr;
+    }
+    else
+    {
+        third = last = second;
+        second = second->next;
+        last->next = nullptr;
+    }
+    while (first && second)
+    {
+        if (first->data < second->data)
+        {
+            last->next = first;
+            last = first;
+            first = first->next;
+            last->next = nullptr;
+        }
+        else
+        {
+            last->next = second;
+            last = second;
+            second = second->next;
+            last->next = nullptr;
+        }
+    }
+    if (first)
+        last->next = first;
+    if (second)
+        last->next = second;
+    return third;
+}
 int main()
 {
     // Array used to create the linked list
-    int numbers[] = {1, 2, 2, 2, 4, 5};
-    int arraySize = 6;
+    int numbers1[] = {1, 4, 5};
+    int numbers2[] = {0, 2, 3, 8};
+    int arraySize1 = 3;
+    int arraySize2 = 4;
 
     // Create the linked list from the array
-    Node *head = createLinkedList(numbers, arraySize);
-    Node *first = recReverseLinkedList(nullptr, head);
+    Node *first = createLinkedList(numbers1, arraySize1);
+    Node *second = createLinkedList(numbers2, arraySize2);
     display(first);
+    display(second);
+    cout << "Display Merged Linkedlist" << endl;
+    Node *third = mergeLinkedList(first ,second);
+    display(third);
     return 0;
 }
