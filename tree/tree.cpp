@@ -32,6 +32,10 @@ public:
     void inorder() { inorder(root); }
     void inorder(TreeNode *p);
     void Ipreorder();
+    int nodeCount() { return nodeCount(root); }
+    int nodeCount(TreeNode *p);
+    int height(TreeNode *p);
+    int height(){return height(root);};
 };
 
 int main()
@@ -46,6 +50,8 @@ int main()
     tr.inorder();
     cout << "Iterative preorder" << endl;
     tr.Ipreorder();
+    cout << "Height of tree is: "<< tr.height() << endl << "Number of nodes of tree are: " << tr.nodeCount() << endl;
+
     return 0;
 }
 
@@ -133,13 +139,46 @@ void Tree::Ipreorder()
     TreeNode *p = root;
     while (p || !st.isEmpty())
     {
-        if(p){
+        if (p)
+        {
             st.push(p);
             cout << p->data;
             p = p->left;
-        }else{
-            p= st.pop();
+        }
+        else
+        {
+            p = st.pop();
             p = p->right;
         }
     }
 }
+
+int Tree::nodeCount(TreeNode *p)
+{
+    if (p)
+    {
+        return nodeCount(p->left) + nodeCount(p->right) + 1;
+    }
+    return 0;
+}
+
+int Tree::height(TreeNode *p)
+{
+    if (p)
+    {
+        int x = height(p->left);
+        int y = height(p->right);
+
+        if (x > y)
+        {
+            return x + 1;
+        }
+        else if(y > x)
+        {
+            return y + 1;
+        }
+        else {return x + 1;}
+    }
+    return 0;
+}
+
