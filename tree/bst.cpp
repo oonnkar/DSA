@@ -123,18 +123,153 @@ public:
         }
         return p;
     }
-
     void recInsert(int key)
     {
         recInsertHelper(root, key);
+    }
+
+    /**
+     * Calculates the height of a node in the Binary Search Tree.
+     * An empty node has a height of 0.
+     *
+     * @param p   Pointer to the current node.
+     * @return    The maximum depth/height of the subtree.
+     */
+    int height(Node *p)
+    {
+        // Base Case: An empty node contributes 0 to the height
+        if (p == nullptr)
+        {
+            return 0;
+        }
+
+        // Compute the height of both subtrees
+        int leftHeight = height(p->left);
+        int rightHeight = height(p->right);
+
+        // The height of the current node is 1 plus the maximum of its children's heights
+        return (leftHeight > rightHeight) ? (leftHeight + 1) : (rightHeight + 1);
+    }
+
+    /**
+     * Finds the value of the inorder predecessor.
+     * Traverses to the rightmost node of the given left subtree.
+     *
+     * @param p   Pointer to the left child of the node being replaced.
+     * @return    The maximum data value in this subtree.
+     */
+    int inorderPredessor(Node *p)
+    {
+        // Guard against a nullptr argument
+        if (p == nullptr)
+            return -1; // Or a suitable error value depending on your tree data
+
+        // Go to the rightmost leaf node
+        while (p->right != nullptr)
+        {
+            p = p->right;
+        }
+
+        return p->data;
+    }
+
+    /**
+     * Finds the value of the inorder successor.
+     * Traverses to the leftmost node of the given right subtree.
+     *
+     * @param p   Pointer to the right child of the node being replaced.
+     * @return    The minimum data value in this subtree.
+     */
+    int inorderSuccesor(Node *p)
+    {
+        // Guard against a nullptr argument
+        if (p == nullptr)
+            return -1; // Or a suitable error value depending on your tree data
+
+        // Go to the leftmost leaf node
+        while (p->left != nullptr)
+        {
+            p = p->left;
+        }
+
+        return p->data;
+    }
+
+    /**
+     * Helper function to recursively delete a node from a Binary Search Tree (BST).
+     * Balances the tree during deletion by checking subtree heights.
+     *
+     * @param p      Pointer to the current node in the BST.
+     * @param data   The value to be deleted.
+     * @return       Pointer to the updated subtree root.
+     */
+    Node *recDeleteHelper(Node *p, int data)
+    {
+        // Base Case 1: The tree or subtree is empty
+        if (p == nullptr)
+        {
+            return nullptr;
+        }
+
+        // Base Case 2: Found the target node, and it is a leaf node
+        if (data == p->data && p->left == nullptr && p->right == nullptr)
+        {
+            delete p;
+            return nullptr;
+        }
+
+        // Recursive Case: Target value is not yet found or node is an internal node
+        if (data < p->data)
+        {
+            // Target is in the left subtree
+            p->left = recDeleteHelper(p->left, data);
+        }
+        else if (data > p->data)
+        {
+            // Target is in the right subtree
+            p->right = recDeleteHelper(p->right, data);
+        }
+        else
+        {
+            // Base Case 3: Found the target node, and it is an internal node (has children)
+            // Optimize tree balance by replacing the node using the taller subtree
+            if (height(p->left) > height(p->right))
+            {
+                // Replace with the largest value from the left subtree (Inorder Predecessor)
+                int inpre = inorderPredessor(p->left);
+                p->data = inpre;
+                p->left = recDeleteHelper(p->left, inpre);
+            }
+            else
+            {
+                // Replace with the smallest value from the right subtree (Inorder Successor)
+                int insuc = inorderSuccesor(p->right);
+                p->data = insuc;
+                p->right = recDeleteHelper(p->right, insuc);
+            }
+        }
+
+        return p;
+    }
+
+    /**
+     * Public wrapper function to delete a value from the BST.
+     *
+     * @param data   The value to be deleted.
+     */
+    void recDelete(int data)
+    {
+        root = recDeleteHelper(root, data);
     }
 };
 
 int main()
 {
-    int arr[] = {3, 2, 4, 1}; // Input array elements to build the BST
-    BST bt(arr, 4);           // Instantiate BST object and build tree
-    bt.preorder();            // Print elements using preorder traversal
-
+    int arr[] = {100, 50, 150, 60, 140, 130}; // Input array elements to build the BST
+    BST bt(arr, 6);                           // Instantiate BST object and build tree
+    bt.preorder();                            // Print elements using preorder traversal
+    bt.recDelete(100);
+    cout << "after ";
+    bt.preorder();
     return 0;
 }
